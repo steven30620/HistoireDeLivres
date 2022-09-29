@@ -22,9 +22,7 @@ exports.createUser = (req, res, next) => {
 						passwordHash: hash,
 					});
 				})
-				.catch((error) =>
-					res.status(401).json(`L'utilisateur existe déjà : ${error}`)
-				);
+				.catch((error) => res.status(401).json(`messages : ${error}`));
 		})
 		.catch(() => res.status(401).json({ message: 'champs incomplet' }));
 };
@@ -67,7 +65,7 @@ exports.userLogin = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
 	const userId = req.params.id;
 	const tokenUserId = req.auth.userId;
-	console.log(userId + ' ' + tokenUserId);
+	console.log('je passe ici ' + '  token décodé ' + tokenUserId);
 	if (userId == tokenUserId) {
 		userSchema
 			.deleteOne({ _id: tokenUserId })
@@ -75,7 +73,7 @@ exports.deleteUser = (req, res, next) => {
 				if (deleteInfo.deletedCount == 0) {
 					res.status(400).json({ message: 'aucun compte suprimé' });
 				} else {
-					res.status(301).json({
+					res.status(201).json({
 						message: 'utilisateur ' + tokenUserId + ' suprimé',
 					});
 				}

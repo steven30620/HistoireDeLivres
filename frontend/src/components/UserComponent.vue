@@ -32,7 +32,7 @@
 
 <script>
 import router from "@/router";
-// import axios from "axios";
+import axios from "axios";
 
 export default {
   components: {},
@@ -67,9 +67,29 @@ export default {
         this.isConnected = false;
       }
     },
-    // deleteAccount: function () {
-    //   const userIdToDelete = axios.delete;
-    // },
+    deleteAccount: function () {
+      let userToken = localStorage.getItem("jwt");
+      let userId = localStorage.getItem("user");
+      userId = JSON.parse(userId);
+      userId = userId._id;
+
+      const config = {
+        headers: { Authorization: `Bearer ${userToken}` },
+      };
+
+      console.log(userToken + " " + userId);
+      axios
+        .delete("http://localhost:3000/api/user/deleteUser/" + userId, config)
+        .then(() => {
+          let userName = localStorage.getItem("user");
+          userName = JSON.parse(userName);
+          console.log("utilisateur " + userName.name + " suprimmé !");
+          this.isNotConnected = true;
+          this.isConnected = false;
+          localStorage.clear();
+        })
+        .catch((error) => console.log({ message: error }));
+    },
     goToAddBook: function () {
       router.push("/addBook");
     },

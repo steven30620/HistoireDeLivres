@@ -70,7 +70,7 @@ export default {
       nameInput: "",
       emailInput: "",
       passwordInput: "",
-      isPremium: "",
+      isPremium: false,
       userCreated: false,
     };
   },
@@ -84,8 +84,7 @@ export default {
           password: this.passwordInput,
           premium: this.isPremium,
         })
-        .then((res) => {
-          console.log(res);
+        .then(() => {
           this.userCreated = true;
           setTimeout(() => {
             this.userCreated = false;
