@@ -1,6 +1,5 @@
 <template>
   <nav>
-    <i class="fas fa-eye"></i>
     <router-link to="/">Accueil</router-link> |
     <router-link to="/books">La bibliothèque</router-link>
     <div id="alerteConnexion" v-if="alerteMessage">

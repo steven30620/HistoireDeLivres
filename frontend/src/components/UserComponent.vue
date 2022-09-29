@@ -20,6 +20,9 @@
           <button @click="goToAddBook" class="dropdown-item" type="button">
             Ajouter un livre
           </button>
+          <button class="dropdown-item" type="button" @click="deleteAccount">
+            Supprimer le compte
+          </button>
         </div>
       </div>
       <div></div>
@@ -29,6 +32,7 @@
 
 <script>
 import router from "@/router";
+// import axios from "axios";
 
 export default {
   components: {},
@@ -63,6 +67,9 @@ export default {
         this.isConnected = false;
       }
     },
+    // deleteAccount: function () {
+    //   const userIdToDelete = axios.delete;
+    // },
     goToAddBook: function () {
       router.push("/addBook");
     },

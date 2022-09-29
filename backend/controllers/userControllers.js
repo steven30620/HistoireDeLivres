@@ -1,6 +1,7 @@
 const userSchema = require('../models/user');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const auth = require('../middleware/auth');
 
 exports.createUser = (req, res, next) => {
 	bcrypt
@@ -65,17 +66,22 @@ exports.userLogin = (req, res, next) => {
 
 exports.deleteUser = (req, res, next) => {
 	const userId = req.params.id;
-
-	userSchema
-		.deleteOne({ _id: userId })
-		.then((deleteInfo) => {
-			if (deleteInfo.deletedCount == 0) {
-				res.status(400).json({ message: 'aucun compte suprimé' });
-			} else {
-				res.status(301).json({
-					message: 'utilisateur ' + userId + ' suprimé',
-				});
-			}
-		})
-		.catch((error) => res.status(400).json(error));
+	const tokenUserId = req.auth.userId;
+	console.log(userId + ' ' + tokenUserId);
+	if (userId == tokenUserId) {
+		userSchema
+			.deleteOne({ _id: tokenUserId })
+			.then((deleteInfo) => {
+				if (deleteInfo.deletedCount == 0) {
+					res.status(400).json({ message: 'aucun compte suprimé' });
+				} else {
+					res.status(301).json({
+						message: 'utilisateur ' + tokenUserId + ' suprimé',
+					});
+				}
+			})
+			.catch((error) => res.status(400).json(error));
+	} else {
+		res.status(400).json({ message: 'Erreur auth' });
+	}
 };

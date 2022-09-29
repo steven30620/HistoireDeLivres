@@ -12,8 +12,8 @@
         </div>
         <div id="connexionArea--formArea--password">
           <label for="connexionArea--formArea--password--input"
-            >Mot de passe : <i fas fa-eye></i
-          ></label>
+            >Mot de passe :</label
+          >
           <input
             v-model="passwordInput"
             :type="text"
@@ -29,7 +29,7 @@
             Connexion
           </button>
           <button class="displayPassword" @click="visible">
-            <img id="eye" src="../assets/eye.png" />
+            <i class="fas fa-eye"></i>
           </button>
         </div>
       </form>
@@ -131,11 +131,5 @@ export default {
 label {
   position: relative;
   top: 4px;
-}
-
-#eye {
-  position: relative;
-  top: -3px;
-  height: 30px;
 }
 </style>
