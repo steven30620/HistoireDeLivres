@@ -79,7 +79,7 @@ export default {
 
       console.log(userToken + " " + userId);
       axios
-        .delete("http://localhost:3000/api/user/deleteUser/" + userId, config)
+        .delete("http://localhost:3000/api/user/" + userId, config)
         .then(() => {
           let userName = localStorage.getItem("user");
           userName = JSON.parse(userName);

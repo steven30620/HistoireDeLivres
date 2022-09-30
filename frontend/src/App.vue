@@ -38,7 +38,7 @@ export default {
 
 nav {
   padding: 15px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   border-bottom: solid 3px rgb(120, 38, 38);
 
   a {

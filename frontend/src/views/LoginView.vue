@@ -24,8 +24,8 @@
 </template>
 
 <script>
-import SignInComponentVue from "../components/SignInComponent.vue";
-import SignUpComponentVue from "../components/SignUpComponent.vue";
+import SignInComponentVue from "../components/UserComponents/SignInComponent.vue";
+import SignUpComponentVue from "../components/UserComponents/SignUpComponent.vue";
 
 export default {
   components: {

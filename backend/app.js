@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 app.use(express.json());
 const mongoose = require('mongoose');
-
+const path = require('path');
 const bookRoutes = require('./routes/bookRoutes');
 const userRoutes = require('./routes/userRoutes');
 
@@ -29,5 +29,6 @@ mongoose
 
 app.use('/api/book', bookRoutes);
 app.use('/api/user', userRoutes);
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 module.exports = app;

@@ -1,27 +1,25 @@
 <template>
   <div id="bodyBook">
-    <div class="home">
+    <bookCardComponent></bookCardComponent>
+
+    <div class="userComponent">
       <UserComponent></UserComponent>
     </div>
-    <div id="books">
-      <font-awesome-icon icon="fa-solid fa-eye" /><font-awesome-icon
-        icon="fa-solid fa-eye"
-      /><font-awesome-icon icon="fa-solid fa-eye" /><font-awesome-icon
-        icon="fa-solid fa-eye"
-      /><font-awesome-icon icon="fa-solid fa-eye" />
-    </div>
+    <div id="bodyBook--CardsArea"></div>
   </div>
 </template>
 
 <script>
-import UserComponent from "../components/UserComponent.vue";
+import UserComponent from "../components/UserComponents/UserComponent.vue";
+import BookCardComponent from "../components/BookComponents/BookCardComponent.vue";
 
 export default {
   name: "BookView",
   components: {
     UserComponent,
+    BookCardComponent,
   },
-  props: {},
+
   data() {
     return {};
   },
@@ -29,4 +27,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+#bodyBook {
+  display: flex;
+  flex-flow: row wrap;
+  border: solid black 2px;
+  justify-content: center;
+  align-content: space-between;
+}
+</style>
