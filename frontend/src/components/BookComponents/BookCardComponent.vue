@@ -1,18 +1,44 @@
 <template>
   <div class="bookCard">
-    <div class="bookCard--title">One piece</div>
-    <div class="bookCard--theme">Shonen</div>
-    <div class="bookCard--imagePlaceholder">
-      <img
-        class="bookCard--imagePlaceholder--image"
-        src="../../assets/One-Piece-Edition-originale.jpg"
-      />
-    </div>
-    <div class="bookCard--price">9,99€</div>
+    <div class="bookCard--title">{{ bookTitle }}</div>
+    <div class="bookCard--theme">{{ bookTheme }}</div>
+    <div class="bookCard--imagePlaceholder">image</div>
+    <div class="bookCard--price">{{ bookPrice }}€</div>
   </div>
 </template>
 
-<script></script>
+<script>
+import axios from "axios";
+
+export default {
+  name: "bookCardComponent",
+  data() {
+    return {
+      bookTitle: "",
+      bookTheme: "",
+      bookPrice: "",
+      bookCover: "",
+    };
+  },
+  methods: {
+    getBooks: function () {
+      axios
+        .get("http://localHost:3000/api/book")
+        .then((res) => {
+          let array = res.data;
+          array = array[0];
+          this.bookTitle = array.title;
+          this.bookTheme = array.theme;
+          this.bookPrice = array.price;
+        })
+        .catch((error) => console.log(error));
+    },
+  },
+  beforeMount() {
+    this.getBooks();
+  },
+};
+</script>
 
 <style lang="scss" scoped>
 .bookCard {

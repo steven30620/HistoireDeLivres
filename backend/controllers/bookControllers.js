@@ -8,14 +8,12 @@ exports.getAllBooks = (req, res, next) => {
 };
 
 exports.addBook = (req, res, next) => {
-	console.log('coucou');
 	const book = new bookSchema({
 		...req.body,
-		imageUrl: 'http://localhost:3000/' + req.file.path.replace('\\', '/'),
 	});
 	book.save()
 		.then(() => {
-			res.status(418).json();
+			res.status(200).json({ message: 'livre créée' });
 		})
 		.catch((error) => res.status(400).json(error));
 };
