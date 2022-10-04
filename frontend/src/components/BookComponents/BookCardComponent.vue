@@ -23,6 +23,7 @@ export default {
       bookCover: "",
     };
   },
+
   methods: {
     getBooks: function () {
       axios
@@ -51,8 +52,12 @@ export default {
   border: solid black 2px;
   width: 250px;
   height: 350px;
+  border-radius: 25px;
   &--title {
-    font-size: 25px;
+    border-top-right-radius: 25px;
+    border-top-left-radius: 25px;
+    font-size: 13px;
+    background-color: #deb885;
     border-bottom: solid black 2px;
   }
   &--theme {

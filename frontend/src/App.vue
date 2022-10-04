@@ -1,11 +1,10 @@
 <template>
-  <nav>
-    <router-link to="/">Accueil</router-link> |
-    <router-link to="/books">La bibliothèque</router-link>
-    <div id="alerteConnexion" v-if="alerteMessage">
-      Vous devez êtres connecté pour acceder à la bibliothèque
-    </div>
-  </nav>
+  <div id="bodyApp">
+    <nav>
+      <router-link to="/">Accueil</router-link> |
+      <router-link to="/books">La bibliothèque</router-link>
+    </nav>
+  </div>
   <router-view />
 </template>
 
@@ -53,12 +52,5 @@ nav {
       color: #d4b44a;
     }
   }
-}
-
-#alerteConnexion {
-  position: absolute;
-  top: 100px;
-  left: 85px;
-  font-size: 30px;
 }
 </style>
