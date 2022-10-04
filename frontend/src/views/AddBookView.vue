@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import axios from "axios";
 
 export default {
@@ -90,8 +91,9 @@ export default {
       };
       axios
         .post("http://localhost:3000/api/book", bookInfo)
-        .then((res) => {
-          console.log(res.data);
+        .then(() => {
+          console.log("livre crée avec succé");
+          router.push("/books");
         })
         .catch((error) => console.log(error));
     },

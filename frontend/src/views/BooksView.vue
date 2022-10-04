@@ -34,5 +34,7 @@ export default {
   border: solid black 2px;
   justify-content: center;
   align-content: space-between;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 </style>

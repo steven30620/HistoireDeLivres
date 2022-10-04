@@ -1,9 +1,11 @@
 <template>
-  <div class="bookCard">
-    <div class="bookCard--title">{{ bookTitle }}</div>
-    <div class="bookCard--theme">{{ bookTheme }}</div>
-    <div class="bookCard--imagePlaceholder">image</div>
-    <div class="bookCard--price">{{ bookPrice }}€</div>
+  <div id="boucle" v-for="book in books" :key="book.id">
+    <div class="bookCard">
+      <div class="bookCard--title">{{ book.title }}</div>
+      <div class="bookCard--theme">{{ book.theme }}</div>
+      <div class="bookCard--imagePlaceholder">image</div>
+      <div class="bookCard--price">{{ book.price }}€</div>
+    </div>
   </div>
 </template>
 
@@ -14,6 +16,7 @@ export default {
   name: "bookCardComponent",
   data() {
     return {
+      books: [],
       bookTitle: "",
       bookTheme: "",
       bookPrice: "",
@@ -25,11 +28,12 @@ export default {
       axios
         .get("http://localHost:3000/api/book")
         .then((res) => {
-          let array = res.data;
-          array = array[0];
-          this.bookTitle = array.title;
-          this.bookTheme = array.theme;
-          this.bookPrice = array.price;
+          this.books = res.data;
+          let i = 0;
+          for (this.book of this.books) {
+            this.book = this.books[i];
+            i++;
+          }
         })
         .catch((error) => console.log(error));
     },
@@ -42,6 +46,8 @@ export default {
 
 <style lang="scss" scoped>
 .bookCard {
+  transition: all 0.2s ease-in-out;
+  margin: 30px;
   border: solid black 2px;
   width: 250px;
   height: 350px;
@@ -64,5 +70,10 @@ export default {
   &--price {
     font-size: 20px;
   }
+}
+
+.bookCard:hover {
+  cursor: pointer;
+  transform: scale(1.1);
 }
 </style>
