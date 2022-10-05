@@ -56,7 +56,8 @@ export default {
   &--title {
     border-top-right-radius: 25px;
     border-top-left-radius: 25px;
-    font-size: 13px;
+    font-size: 20px;
+    height: 30px;
     background-color: #deb885;
     border-bottom: solid black 2px;
   }
