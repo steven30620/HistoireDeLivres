@@ -21,8 +21,7 @@ app.use((req, res, next) => {
 
 mongoose
 	.connect(
-		'mongodb+srv://steven:testtest@clustertest.4yuc7.mongodb.net/clusterTest',
-		{ useNewUrlParser: true, useUnifiedTopology: true }
+		'mongodb+srv://steven:testtest@clustertest.4yuc7.mongodb.net/clusterTest'
 	)
 	.then(() => console.log('Connexion à MongoDB réussie !'))
 	.catch(() => console.log('Connexion à MongoDB échouée !'));

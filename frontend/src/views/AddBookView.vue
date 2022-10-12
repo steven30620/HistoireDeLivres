@@ -1,6 +1,6 @@
 <template>
   <div id="formArea">
-    <form>
+    <form enctype="multipart/form-data">
       <div class="form-group">
         <label for="bookTitle">Titre du livre :</label>
         <input

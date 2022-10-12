@@ -1,5 +1,6 @@
 const Book = require('../models/book');
 const bookSchema = require('../models/book');
+const multer = require('../middleware/multer');
 
 exports.getAllBooks = (req, res, next) => {
 	Book.find()
