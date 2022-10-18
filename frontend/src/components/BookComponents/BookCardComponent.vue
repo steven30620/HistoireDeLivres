@@ -3,7 +3,9 @@
     <div class="bookCard">
       <div class="bookCard--title">{{ book.title }}</div>
       <div class="bookCard--theme">{{ book.theme }}</div>
-      <div class="bookCard--imagePlaceholder">image</div>
+      <div class="bookCard--imagePlaceholder">
+        <img class="bookCard--image" :src="book.image" />
+      </div>
       <div class="bookCard--price">{{ book.price }}€</div>
     </div>
   </div>
@@ -17,10 +19,6 @@ export default {
   data() {
     return {
       books: [],
-      bookTitle: "",
-      bookTheme: "",
-      bookPrice: "",
-      bookCover: "",
     };
   },
 
@@ -68,13 +66,14 @@ export default {
   &--imagePlaceholder {
     border-bottom: solid black 2px;
     height: 240px;
-    &--image {
-      height: 100%;
-      object-fit: contain;
-    }
   }
   &--price {
     font-size: 20px;
+  }
+  img {
+    object-fit: contain;
+    height: 100%;
+    width: 100%;
   }
 }
 

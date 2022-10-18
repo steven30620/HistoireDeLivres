@@ -53,7 +53,12 @@
         </div>
       </div>
       <div id="submit">
-        <button id="submit--button" @click="onSubmit" type="submit">
+        <button
+          id="submit--button"
+          @click="onSubmit"
+          type="submit"
+          method="post"
+        >
           Publier le livre !
         </button>
       </div>
@@ -78,19 +83,30 @@ export default {
   },
   methods: {
     coverSelect: function () {
-      let file = this.$refs.file.files[0];
-      this.bookCover = file;
+      this.bookCover = this.$refs.file.files[0];
+      console.log(this.bookCover);
     },
     onSubmit: function () {
-      let bookInfo = {
-        title: this.bookTitle,
-        theme: this.bookTheme,
-        resume: this.bookResume,
-        price: this.bookPrice,
-        cover: this.bookCover,
+      const token = localStorage.getItem("jwt");
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
       };
+
+      const formData = new FormData();
+
+      formData.append("image", this.bookCover);
+      formData.append("bookTitle", this.bookTitle);
+      formData.append("bookTheme", this.bookTheme);
+      formData.append("bookResume", this.bookResume);
+      formData.append("bookPrice", this.bookPrice);
+
+      console.log(formData);
       axios
-        .post("http://localhost:3000/api/book", bookInfo)
+        .post("http://localhost:3000/api/book", formData, config)
         .then(() => {
           console.log("livre crée avec succé");
           router.push("/books");

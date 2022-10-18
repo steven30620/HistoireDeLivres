@@ -1,6 +1,5 @@
-const Book = require('../models/book');
 const bookSchema = require('../models/book');
-const multer = require('../middleware/multer');
+const Book = require('../models/book');
 const fs = require('fs');
 
 exports.getAllBooks = (req, res, next) => {
@@ -10,13 +9,16 @@ exports.getAllBooks = (req, res, next) => {
 };
 
 exports.addBook = (req, res, next) => {
-	console.log(req);
 	const book = new bookSchema({
-		...req.body,
-		imageUrl: `${req.protocol}://${req.get('host')}/images/${
+		title: req.body.bookTitle,
+		theme: req.body.bookTheme,
+		resume: req.body.bookResume,
+		price: req.body.bookPrice,
+		image: `${req.protocol}://${req.get('host')}/images/${
 			req.file.filename
 		}`,
 	});
+	console.log(book);
 	book.save()
 		.then(() => {
 			res.status(200).json({ message: 'livre créée' });

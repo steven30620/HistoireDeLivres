@@ -5,6 +5,7 @@ const bookSchema = mongoose.Schema({
 	theme: { type: String, require: true },
 	resume: { type: String, require: true },
 	price: { type: Number, require: true },
+	image: { type: String, require: true },
 });
 
 module.exports = mongoose.model('Book', bookSchema);
