@@ -32,13 +32,26 @@
       </div>
       <div class="form-group">
         <label for="bookTitle">Prix :</label>
-        <input
-          type="text"
-          class="form-control"
-          id="bookTitle"
-          placeholder="Prix"
-          v-model="bookPrice"
-        />
+        <div class="form-group-price">
+          <input
+            type="string"
+            class="form-control-price form-control-price-int"
+            id="bookPrice"
+            placeholder="_ _ _"
+            maxlength="3"
+            v-model="bookPrice"
+          />
+          <div class="form-control-price-comma" id="comma">,</div>
+          <input
+            type="string"
+            class="form-control-price form-control-price-cent"
+            id="bookPriceCent"
+            placeholder="_ _"
+            maxlength="2"
+            v-model="bookPriceCent"
+          />
+          <div class="form-control-price-euro">€</div>
+        </div>
       </div>
       <div class="form-group book--image">
         <label for="bookImage">Couverture du livre :</label>
@@ -61,6 +74,7 @@
         >
           Publier le livre !
         </button>
+        <button @click="test">test</button>
       </div>
     </form>
   </div>
@@ -78,16 +92,26 @@ export default {
       bookTheme: "",
       bookResume: "",
       bookPrice: "",
+      bookPriceCent: "",
       bookCover: "",
     };
   },
   methods: {
+    test: function () {
+      console.log(this.fullPrice);
+    },
+
     coverSelect: function () {
       this.bookCover = this.$refs.file.files[0];
       console.log(this.bookCover);
     },
+
     onSubmit: function () {
       const token = localStorage.getItem("jwt");
+
+      if (token == null) {
+        return console.log("erreur : vous n'êtes pas connecté");
+      }
 
       const config = {
         headers: {
@@ -114,6 +138,27 @@ export default {
         .catch((error) => console.log(error));
     },
   },
+  computed: {
+    fullPrice() {
+      return parseInt(this.bookPrice) * 100 + parseInt(this.bookPriceCent);
+    },
+  },
+  watch: {
+    bookPrice: function () {
+      let priceLength = this.bookPrice.length;
+      if (priceLength == 3) {
+        document.getElementById("bookPriceCent").focus();
+        console.log("full");
+      }
+    },
+    bookPriceCent: function () {
+      let centLength = this.bookPriceCent.length;
+      if (centLength == 0) {
+        document.getElementById("bookPrice").focus();
+        console.log("cent vide");
+      }
+    },
+  },
 };
 </script>
 
@@ -129,6 +174,52 @@ form {
   font-size: 25px;
 }
 
+.form-group-price {
+  width: 18%;
+  height: 64px;
+  display: flex;
+  justify-content: center;
+  border: black solid 2px;
+  position: relative;
+  left: 40%;
+  input {
+    text-align: right;
+    &:focus {
+      outline: none;
+    }
+  }
+}
+.form-control-price {
+  &-int {
+    height: 60px;
+    width: 80px;
+    border: none;
+    &::placeholder {
+      text-align: right;
+      font-size: 27px;
+    }
+  }
+  &-comma {
+    padding-top: 3px;
+    font-size: 40px;
+  }
+  &-euro {
+    padding-top: 3px;
+    font-size: 35px;
+  }
+  &-cent {
+    height: 60px;
+    width: 40px;
+    border: none;
+    padding-right: 5px;
+    &::placeholder {
+      text-align: left;
+      font-size: 25px;
+      position: relative;
+      top: 0px;
+    }
+  }
+}
 .book {
   &--image {
     display: flex;
