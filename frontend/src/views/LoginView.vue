@@ -18,7 +18,7 @@
     </div>
 
     <div id="Form">
-      <component :is="activeComponent" class="form" @emit="test()"></component>
+      <component :is="activeComponent" class="form"></component>
     </div>
   </div>
 </template>
@@ -32,7 +32,6 @@ export default {
     SignInComponentVue,
     SignUpComponentVue,
   },
-  emits: ["emit2"],
   data() {
     return {
       backgroundColorConnexion: "",
@@ -43,10 +42,6 @@ export default {
     };
   },
   methods: {
-    test: function () {
-      console.log("jes ui emit 1");
-      this.$emit("emit2");
-    },
     connexion: function () {
       this.backgroundColorInscription = "";
       this.backgroundColorConnexion = "#deb887";

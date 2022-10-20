@@ -1,5 +1,5 @@
 <template>
-  <div id="bodyApp">
+  <div id="bodyApp" @check="checkIsConnected">
     <nav>
       <router-link to="/">Accueil</router-link> |
       <router-link to="/books">La bibliothèque</router-link>
@@ -17,7 +17,7 @@ import UserComponent from "./components/UserComponents/UserComponent.vue";
 export default {
   name: "App",
   components: {
-    UserComponent: UserComponent,
+    UserComponent,
   },
   props: {},
   data() {
@@ -36,10 +36,9 @@ export default {
         console.log("tes pas co ");
         return (this.isConnected = false);
       }
-      // this.$store.commit("userIsConnected");
+      this.isConnected = true;
     },
   },
-
   beforeMount() {
     this.checkIsConnected();
   },
