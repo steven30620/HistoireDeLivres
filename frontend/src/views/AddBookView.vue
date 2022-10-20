@@ -33,23 +33,27 @@
       <div class="form-group">
         <label for="bookTitle">Prix :</label>
         <div class="form-group-price">
-          <input
-            type="string"
-            class="form-control-price form-control-price-int"
-            id="bookPrice"
-            placeholder="_ _ _"
-            maxlength="3"
-            v-model="bookPrice"
-          />
+          <div class="form-group-price-gauche">
+            <input
+              type="string"
+              class="form-control-price form-control-price-int"
+              id="bookPrice"
+              placeholder="_ _ _"
+              maxlength="3"
+              v-model="bookPrice"
+            />
+          </div>
           <div class="form-control-price-comma" id="comma">,</div>
-          <input
-            type="string"
-            class="form-control-price form-control-price-cent"
-            id="bookPriceCent"
-            placeholder="_ _"
-            maxlength="2"
-            v-model="bookPriceCent"
-          />
+          <div class="form-group-price-droite">
+            <input
+              type="string"
+              class="form-control-price form-control-price-cent"
+              id="bookPriceCent"
+              placeholder="_ _"
+              maxlength="2"
+              v-model="bookPriceCent"
+            />
+          </div>
           <div class="form-control-price-euro">€</div>
         </div>
       </div>
@@ -97,17 +101,17 @@ export default {
     };
   },
   methods: {
-    test: function () {
-      console.log(this.fullPrice);
+    calcPrice: function () {
+      return this.fullPrice;
     },
 
     coverSelect: function () {
       this.bookCover = this.$refs.file.files[0];
-      console.log(this.bookCover);
     },
 
     onSubmit: function () {
       const token = localStorage.getItem("jwt");
+      let price = this.calcPrice();
 
       if (token == null) {
         return console.log("erreur : vous n'êtes pas connecté");
@@ -126,13 +130,12 @@ export default {
       formData.append("bookTitle", this.bookTitle);
       formData.append("bookTheme", this.bookTheme);
       formData.append("bookResume", this.bookResume);
-      formData.append("bookPrice", this.bookPrice);
+      formData.append("bookPrice", price);
 
-      console.log(formData);
       axios
         .post("http://localhost:3000/api/book", formData, config)
         .then(() => {
-          console.log("livre crée avec succé");
+          console.log("livre crée avec succée");
           router.push("/books");
         })
         .catch((error) => console.log(error));
@@ -148,14 +151,12 @@ export default {
       let priceLength = this.bookPrice.length;
       if (priceLength == 3) {
         document.getElementById("bookPriceCent").focus();
-        console.log("full");
       }
     },
     bookPriceCent: function () {
       let centLength = this.bookPriceCent.length;
       if (centLength == 0) {
         document.getElementById("bookPrice").focus();
-        console.log("cent vide");
       }
     },
   },
@@ -182,10 +183,12 @@ form {
   border: black solid 2px;
   position: relative;
   left: 40%;
-  input {
-    text-align: right;
-    &:focus {
-      outline: none;
+  input:focus {
+    outline: none;
+  }
+  &-gauche {
+    input {
+      text-align: right;
     }
   }
 }
