@@ -132,6 +132,10 @@ export default {
       formData.append("bookResume", this.bookResume);
       formData.append("bookPrice", price);
 
+      if (this.checkInput() == false) {
+        return console.log("erreur de champs");
+      }
+
       axios
         .post("http://localhost:3000/api/book", formData, config)
         .then(() => {
@@ -139,6 +143,11 @@ export default {
           router.push("/books");
         })
         .catch((error) => console.log(error));
+    },
+    checkInput: function () {
+      if (isNaN(this.bookPrice) || isNaN(this.bookPriceCent)) {
+        console.log("ce n'es pas un prix");
+      }
     },
   },
   computed: {

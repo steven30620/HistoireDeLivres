@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router';
 import LoginView from '../views/LoginView.vue';
 import BooksView from '../views/BooksView.vue';
 import AddBookView from '../views/AddBookView.vue';
+import BookView from '../views/BookView';
 
 const routes = [
 	{
@@ -18,6 +19,11 @@ const routes = [
 		path: '/addBook',
 		name: 'addBook',
 		component: AddBookView,
+	},
+	{
+		path: '/book/:id',
+		name: 'book',
+		component: BookView,
 	},
 ];
 

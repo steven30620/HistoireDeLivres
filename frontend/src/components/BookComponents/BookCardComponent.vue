@@ -1,6 +1,6 @@
 <template>
-  <div id="boucle" v-for="book in books" :key="book.id">
-    <div class="bookCard">
+  <div id="book" v-for="book in books" :key="book._id">
+    <div class="bookCard" @click="displayBook(book._id)">
       <div class="bookCard--title">{{ book.title }}</div>
       <div class="bookCard--theme">{{ book.theme }}</div>
       <div class="bookCard--imagePlaceholder">
@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import router from "@/router";
 import axios from "axios";
 
 export default {
@@ -19,6 +20,7 @@ export default {
   data() {
     return {
       books: [],
+      bookPrice: Number,
     };
   },
 
@@ -27,14 +29,23 @@ export default {
       axios
         .get("http://localHost:3000/api/book")
         .then((res) => {
-          this.books = res.data;
+          let bookArray = res.data;
           let i = 0;
-          for (this.book of this.books) {
-            this.book = this.books[i];
+          for (this.book in bookArray) {
+            this.books.push(bookArray[i]);
+            bookArray[i].price = bookArray[i].price / 100;
             i++;
           }
         })
         .catch((error) => console.log(error));
+    },
+    displayBook: function (selectedBookId) {
+      router.push("/book/" + selectedBookId);
+    },
+  },
+  computed: {
+    calculedPrice() {
+      return this.book.price / 100;
     },
   },
   beforeMount() {
