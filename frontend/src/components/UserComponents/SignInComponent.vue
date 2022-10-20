@@ -22,9 +22,9 @@
         </div>
         <div id="connexionArea--formArea--footer">
           <button
-            @click="onSubmit"
             id="connexionArea--formArea--footer--button"
             type="submit"
+            @click="onSubmit"
           >
             Connexion
           </button>
@@ -38,16 +38,18 @@
 </template>
 
 <script>
-import router from "@/router";
+// import router from "@/router";
 import axios from "axios";
 
 export default {
   components: {},
+
   data() {
     return {
       emailInput: "",
       passwordInput: "",
       text: "password",
+      dataUser: {},
     };
   },
   methods: {
@@ -58,10 +60,11 @@ export default {
           password: this.passwordInput,
         })
         .then((res) => {
-          let userData = res.data.info_Utilisateur;
-          localStorage.setItem("user", JSON.stringify(userData));
+          this.dataUser = res.data.info_Utilisateur;
+          localStorage.setItem("user", JSON.stringify(this.dataUser));
           localStorage.setItem("jwt", res.data.token);
-          router.push("/books");
+          this.dataUserStore();
+          // router.push("/books");
         })
         .catch((error) => console.log(error));
     },
@@ -71,6 +74,12 @@ export default {
       } else {
         this.text = "text";
       }
+    },
+  },
+  computed: {
+    dataUserStore() {
+      this.$store.commit("setUserData", this.dataUser);
+      return console.log(this.$store.state.userData);
     },
   },
 };

@@ -1,22 +1,15 @@
 <template>
   <div id="bodyBook">
     <bookCardComponent></bookCardComponent>
-
-    <div class="userComponent">
-      <UserComponent></UserComponent>
-    </div>
-    <div id="bodyBook--CardsArea"></div>
   </div>
 </template>
 
 <script>
-import UserComponent from "../components/UserComponents/UserComponent.vue";
 import BookCardComponent from "../components/BookComponents/BookCardComponent.vue";
 
 export default {
   name: "BooksView",
   components: {
-    UserComponent,
     BookCardComponent,
   },
 
